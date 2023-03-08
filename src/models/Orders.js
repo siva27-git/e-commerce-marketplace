@@ -5,11 +5,11 @@ const schema = new mongoose.Schema({
     buyerId: { type: String, required: true, trim: true },
     sellerId: { type: String, required: true, trim: true },
     products: [{
-        name: { type: String, required: true, trim: true },
+        productId: { type: String, required: true, trim: true },
         quantity: { type: Number, required: true }
     }]
 }, {
-    collation: "orders",
+    collection: "orders",
     timestamps: true
 });
 

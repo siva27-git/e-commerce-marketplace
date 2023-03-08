@@ -1,7 +1,6 @@
-const moment = require('moment');
 const { isEmpty } = require('lodash');
 
-const { Products } = require('../models');
+const { Products, Orders } = require('../models');
 
 const createCatalog = async (req, res) => {
     const { id } = req.data;
@@ -17,7 +16,12 @@ const createCatalog = async (req, res) => {
 
             if (!isEmpty(productName) && price && Math.sign(price) == 1) {
 
-                const obj = { name: productName, price: price, sellerId: id };
+                const obj = {
+                    productId: `${productName}-${id}`,
+                    name: productName,
+                    price: price,
+                    sellerId: id
+                };
                 const result = await Products.updateOne(
                     { name: productName, sellerId: id },
                     { ...obj },
@@ -38,6 +42,20 @@ const createCatalog = async (req, res) => {
     }
 };
 
+const getOrders = async (req, res) => {
+    const { id: sellerId = "" } = req.data;
+    try {
+        const selectQry = { orderId: 1, buyerId: 1, products: 1, _id: 0 };
+        const orders = await Orders.find({ sellerId }).select(selectQry);
+        res.status(200).send(orders);
+
+    } catch (e) {
+        console.log(`Error while getting orders ${e}`);
+        res.status(400).send({ message: e.message });
+    }
+};
+
 module.exports = {
     createCatalog,
+    getOrders
 }

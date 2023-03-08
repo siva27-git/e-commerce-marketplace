@@ -61,7 +61,6 @@ const loginUser = async (req, res) => {
         console.log(`Error while logging in ${userName} -${e.message}`);
         res.status(400).send({ message: e.message });
     }
-
 };
 
 module.exports = {

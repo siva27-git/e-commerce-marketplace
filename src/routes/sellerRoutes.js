@@ -6,7 +6,7 @@ module.exports = () => {
     const router = Router({ mergeParams: true });
 
     router.route('/create-catalog').post(sellerController.createCatalog);
-    // router.route('/seller-catalog').get(buyerController.getSellerCatalog);
+    router.route('/orders').get(sellerController.getOrders);
 
     return router;
 };
