@@ -1,6 +1,6 @@
 const { isEmpty } = require('lodash');
 const moment = require('moment');
-const { Users, Products, Orders } = require('../models');
+const { Users, Products, Orders } = require('../../models');
 
 
 const getSellerList = async (req, res) => {

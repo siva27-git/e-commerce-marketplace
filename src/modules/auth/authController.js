@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
 
-const { Users } = require('../models');
+const { Users } = require('../../models');
 const { ACCESS_TOKEN_SECRET } = process.env;
 
 const registerUser = async (req, res) => {

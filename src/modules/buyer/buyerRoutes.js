@@ -1,6 +1,6 @@
 const Router = require('express-promise-router');
 
-const buyerController = require('../controllers/buyerController');
+const buyerController = require('./buyerController');
 
 module.exports = () => {
     const router = Router({ mergeParams: true });

@@ -1,6 +1,6 @@
 const { isEmpty } = require('lodash');
 
-const { Products, Orders } = require('../models');
+const { Products, Orders } = require('../../models');
 
 const createCatalog = async (req, res) => {
     const { id } = req.data;
