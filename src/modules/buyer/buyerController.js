@@ -44,7 +44,10 @@ const createOrder = async (req, res) => {
         const invalidProducts = []
         if (!Array.isArray(data)) return res.status(400).send({ message: "requires an array" });
         if (isEmpty(sellerId)) return res.status(400).send({ message: "pass seller_id the url" });
+        const sellerRec = await Users.findOne({ id: sellerId });
+        if (isEmpty(sellerRec)) return res.status(404).send({ message: "seller not found" });
         if (isEmpty(buyerId)) return res.status(401).send({ message: "unauthorized" });
+        if (data.length > 10) return res.status(401).send({ message: "can add upto 10 products in 1 order" });
 
         data.map((ele) => {
             const { productId = "", quantity = 0 } = ele

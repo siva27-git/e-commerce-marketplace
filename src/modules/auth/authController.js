@@ -50,7 +50,7 @@ const loginUser = async (req, res) => {
         const user = await Users.findOne({ userName });
         if (user) {
             if (await bcrypt.compare(password, user.password)) {
-                const access_token = jwt.sign({ name: user.userName, id: user.id }, ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
+                const access_token = jwt.sign({ name: user.userName, id: user.id, userType: user.userType }, ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
                 res.status(200).json({ message: "logged in successfully !", access_token },);
             }
             else res.status(400).json({ message: "invalid password" });

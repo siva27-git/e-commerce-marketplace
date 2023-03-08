@@ -7,11 +7,12 @@ const createCatalog = async (req, res) => {
     try {
         const data = req.body
         if (!Array.isArray(data)) return res.status(400).send({ message: "requires an array" });
+        if (data.length > 10) return res.status(400).send({ message: "can add upto 10 produces at a time" });
 
         let created = 0, updated = 0, invalid = 0;
 
         for (let i = 0; i < data.length; i++) {
-            const productName = data[i].name.trim().toLowerCase();
+            const productName = data[i].name && data[i].name.trim().toLowerCase();
             const price = Number(data[i].price);
 
             if (!isEmpty(productName) && price && Math.sign(price) == 1) {
@@ -32,7 +33,7 @@ const createCatalog = async (req, res) => {
             }
             else invalid++
         }
-        const message = { "No Of records created": created, "No of records updated": updated, "Invalid Records": invalid };
+        const message = { "No Of records created": created, "No of records updated": updated, "Invalid records": invalid };
 
         res.status(200).send(message);
     }

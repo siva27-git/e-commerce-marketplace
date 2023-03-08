@@ -15,6 +15,30 @@ const validate = (req, res, next) => {
     }
 };
 
+const buyerAuth = (req, res, next) => {
+    const { userType = "" } = req.data;
+    try {
+        if (userType == "buyer") next();
+        else res.status(401).send({ message: "unauthorized" })
+    }
+    catch (e) {
+        res.status(401).send({ message: "unauthorized" })
+    }
+};
+
+const sellerAuth = (req, res, next) => {
+    const { userType = "" } = req.data;
+    try {
+        if (userType == "seller") next();
+        else res.status(401).send({ message: "unauthorized" })
+    }
+    catch (e) {
+        res.status(401).send({ message: "unauthorized" })
+    }
+};
+
 module.exports = {
-    validate
+    validate,
+    buyerAuth,
+    sellerAuth
 };
