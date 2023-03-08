@@ -4,7 +4,7 @@ const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const moment = require('moment');
 
-const Users = require('../models/Users');
+const { Users } = require('../models');
 const { ACCESS_TOKEN_SECRET } = process.env;
 
 const registerUser = async (req, res) => {
@@ -24,7 +24,7 @@ const registerUser = async (req, res) => {
         } else {
             password = await bcrypt.hash(password, 10);
             const currentTime = moment().format('YYMMDDhhmmssss');
-            const prefix = userType == "buyer" ? "B" : "S"
+            const prefix = userType == "buyer" ? "BU" : "SE"
             const obj = {
                 userName,
                 password,
@@ -50,7 +50,7 @@ const loginUser = async (req, res) => {
         const user = await Users.findOne({ userName });
         if (user) {
             if (await bcrypt.compare(password, user.password)) {
-                const access_token = jwt.sign({ userName }, ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
+                const access_token = jwt.sign({ name: user.userName, id: user.id }, ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
                 res.status(200).json({ message: "logged in successfully !", access_token },);
             }
             else res.status(400).json({ message: "invalid password" });

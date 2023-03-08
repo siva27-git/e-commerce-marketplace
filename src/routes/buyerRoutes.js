@@ -7,7 +7,7 @@ module.exports = () => {
 
     router.route('/list-of-sellers').get(buyerController.getSellerList);
     router.route('/seller-catalog').get(buyerController.getSellerCatalog);
+    router.route('/create-order').post(buyerController.createOrder);
 
     return router;
 };
-
