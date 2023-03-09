@@ -33,6 +33,8 @@ Response:
     "access_token": "access token"
 }
 
+The Aceess token will expire in 15 mins
+
 Buyer APIs
 
 1. List Of Sellers
