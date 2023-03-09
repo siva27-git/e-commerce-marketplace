@@ -1,7 +1,7 @@
 const { isEmpty } = require('lodash');
 const moment = require('moment');
-const { Users, Products, Orders } = require('../../models');
 
+const { Users, Products, Orders } = require('../../models');
 
 const getSellerList = async (req, res) => {
     try {
@@ -28,7 +28,6 @@ const getSellerCatalog = async (req, res) => {
 
         if (sellerCatalog.length == 0) res.status(400).send({ message: "seller not created the catlog" });
         else res.status(200).send(sellerCatalog);
-
     }
     catch (e) {
         console.log(`Error while getting seller catalog ${e.message}`);

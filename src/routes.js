@@ -1,11 +1,11 @@
 const { Router } = require('express');
-const apiRouter = Router();
 
 const { validate } = require('./utils/authHelper');
-
 const authRoutes = require('./modules/auth/authRoutes');
 const buyerRoutes = require('./modules/buyer/buyerRoutes');
 const sellerRoutes = require('./modules/seller/sellerRoutes');
+
+const apiRouter = Router();
 
 module.exports =
     apiRouter

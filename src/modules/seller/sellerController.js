@@ -16,15 +16,16 @@ const createCatalog = async (req, res) => {
             const price = Number(data[i].price);
 
             if (!isEmpty(productName) && price && Math.sign(price) == 1) {
+                const productId = `${productName}-${id}`
 
                 const obj = {
-                    productId: `${productName}-${id}`,
+                    productId,
                     name: productName,
                     price: price,
                     sellerId: id
                 };
                 const result = await Products.updateOne(
-                    { name: productName, sellerId: id },
+                    { productId },
                     { ...obj },
                     { upsert: true }
                 )

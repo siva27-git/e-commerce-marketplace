@@ -1,9 +1,9 @@
 'use strict';
 
 const express = require('express');
-const { PORT } = process.env;
 
 const apiRouter = require('../routes');
+const { PORT = 3000 } = process.env;
 
 module.exports = async () => {
 
@@ -13,7 +13,7 @@ module.exports = async () => {
     app.use('/api', apiRouter);
 
     app.listen(PORT, () => {
-        console.log(`Server started at port ${PORT}`)
+        console.log(`Server started at port ${PORT}`);
     });
 
     return app;
