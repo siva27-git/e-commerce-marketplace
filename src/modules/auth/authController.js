@@ -12,6 +12,7 @@ const registerUser = async (req, res) => {
     userType = userType.toLowerCase();
     userName = userName.trim();
     try {
+        // data validation of the users
         if (isEmpty(userName) || isEmpty(password) || isEmpty(userType)) return res.status(400).send({ message: "missing mandatory fields!" });
         if (!validator.validate(userName)) return res.status(400).send({ message: "userName should be an email" });
         if (password.length < 8) return res.status(400).send({ message: "password length should be minium 8 characters" });
@@ -22,6 +23,7 @@ const registerUser = async (req, res) => {
         if (!isEmpty(findUser)) {
             return res.status(400).send({ message: "user already exists with the userName" });
         } else {
+            // hassing pasword with bcrypt
             password = await bcrypt.hash(password, 10);
             const currentTime = moment().format('YYMMDDhhmmssss');
             const prefix = userType == "buyer" ? "BU" : "SE"
@@ -50,6 +52,7 @@ const loginUser = async (req, res) => {
         const user = await Users.findOne({ userName });
         if (user) {
             if (await bcrypt.compare(password, user.password)) {
+                // Generating acces token using jwt
                 const access_token = jwt.sign({ name: user.userName, id: user.id, userType: user.userType }, ACCESS_TOKEN_SECRET, { expiresIn: '15m' });
                 res.status(200).json({ message: "logged in successfully !", access_token },);
             }

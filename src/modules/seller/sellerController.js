@@ -37,7 +37,7 @@ const createCatalog = async (req, res) => {
             }
             else invalid++
         }
-        
+
         const message = { "products created": created, "products updated": updated, "invalid products": invalid };
         res.status(200).send(message);
     }

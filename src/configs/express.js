@@ -3,7 +3,7 @@
 const express = require('express');
 
 const apiRouter = require('../routes');
-const { PORT = 3000 } = process.env;
+const { PORT } = process.env;
 
 module.exports = async () => {
 
